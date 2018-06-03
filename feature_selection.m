@@ -5,14 +5,15 @@
 function features = feature_selection(data)
 
 %data = trim_data(data);    % Trim 5% of dataset
+data(1,:) = [];
 class = data(:,1);
 data(:,1) = [];
-data = remove_feature(data);
+[data,ori_col_num] = remove_feature(data);
 data = zscore(data);        % Normalize data
 data = [class data];
 searcher = choose_algo();  % Choose algorithm
 print_dataset_info(data);
-features = searcher(data);
+features = searcher(data,ori_col_num);
 
 end
 
@@ -68,15 +69,18 @@ for i = 1 : length(original_data(1,:))
 end
 end
 
-function data = remove_feature(data)
+function [data,ori_col_num] = remove_feature(data)
 
-cols = [];
+cols_r = [];
+ori_col_num = [];
 for j = 1:size(data,2)
     if sum(data(:,j)) == 0
-        cols = [cols j];
+        cols_r = [cols_r j];
+    else
+        ori_col_num = [ori_col_num j];
     end
 end
 
-data(:,cols) = [];
+data(:,cols_r) = [];
 
 end

@@ -2,7 +2,7 @@
 % Name: Tsung-Ying Chen 
 % SID : 861310198 
 % Date: 11/29/2017 
-function best_features = backward_search(data)
+function best_features = backward_search(data,ori_col_num)
 
 features = size(data,2)-1;
 current_set_of_features = 1:features; % Initialize a full set
@@ -35,7 +35,7 @@ for i = 2 : features
     %%% remove the worst feature
     current_set_of_features(find(current_set_of_features == feature_to_remove_at_this_level)) = [];
     current_accuracy_by_current_set(features - i + 1) = best_so_far_accuracy;
-    disp(['On level ', num2str(i),' i removed feature ', num2str(feature_to_remove_at_this_level), ' from current set with accuracy ', num2str(best_so_far_accuracy)])
+    disp(['On level ', num2str(i),' i removed feature ', num2str(ori_col_num(feature_to_remove_at_this_level)), ' from current set with accuracy ', num2str(best_so_far_accuracy)])
     %fprintf('\n');    
     
     %%%%%  Record the best subset
@@ -45,7 +45,12 @@ for i = 2 : features
     end
 end 
 
-disp(['Finished search!! The best feature subset is ', num2str(best_features), ', which has an accuracy of ',num2str(best_accuracy)])
+best_features_o = [];
+for k = 1:length(best_features)
+    best_features_o = [best_features_o ori_col_num(best_features(k))];
+end
+
+disp(['Finished search!! The best feature subset is ', num2str(best_features_o), ', which has an accuracy of ',num2str(best_accuracy)])
 %plot_features_err(current_accuracy_by_current_set)
 
 end

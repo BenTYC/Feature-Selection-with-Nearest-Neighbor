@@ -9,4 +9,4 @@ Code up the nearest neighbor classifier, and then use it inside a “wrapper” 
 
 Example 
 ---
-<img src="https://github.com/BenTYC/Feature-Selection-with-Nearest-Neighbor/blob/master/example.png" width="500">
+<img src="https://github.com/BenTYC/Feature-Selection-with-Nearest-Neighbor/blob/master/example.png" width="700">
